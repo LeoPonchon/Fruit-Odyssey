@@ -1,172 +1,170 @@
-# 🌊 FRUIT ODYSSEY 🌊 (UPCOMING)
+# 🌊 FRUIT ODYSSEY 🌊 (À VENIR)
 
-A brand new adventure is on the horizon!  
-Set sail into a world where legendary fruits grant incredible powers.  
-Explore vast seas, battle powerful enemies, and become the strongest.
-
----
-
-## 🎮 Gameplay Style
-
-**Bandit Beater** - Traverse islands with your team, defeat mob groups and world bosses to progress.
-
-### Island System
-- Each island contains a **mob group** and a **world boss**
-- **2 quests per island**:
-  - One for defeating the mob group
-  - One for defeating the world boss
-- **Rewards**: XP, Currency (Berries), and Gems for completing quests or defeating mobs/bosses
+Une toute nouvelle aventure se profile à l'horizon !  
+Partez à la conquête d'un monde où les fruits légendaires octoient des pouvoirs incroyables.  
+Explorez de vastes mers, affrontez des ennemis puissants et devenez le plus fort.
 
 ---
 
-## 🌍 Universes & Characters
+## 🎮 Style de Jeu
 
-Collect characters from multiple iconic anime universes:
+**Bandit Beater** - Parcourez les îles avec votre équipe, défaites les groupes de mobs et les boss de monde pour progresser.
+
+### Système d'Îles
+- Chaque île contient un **groupe de mobs** et un **boss de monde**
+- **2 quêtes par île** :
+  - Une pour defeats le groupe de mobs
+  - Une pour defeats le boss de monde
+- **Récompenses** : XP, Argent (Berry), et Gemmes pour compléter les quêtes ou tuer les mobs/boss
+
+---
+
+## 🌍 Univers et Personnages
+
+Recueillez des personnages de multiples univers d'anime emblématiques :
 
 ### 🍎 One Piece
-- **Luffy** - Rubber Fruit powers
-- **Zoro** - Three-sword style
-- **Sanji** - Black leg style
-- **Ace** - Flame Flame Fruit
-- **Shanks** - Haki master
+- **Luffy** - Pouvoirs du fruit caoutchouc
+- **Zoro** - Style à trois épées
+- **Sanji** - Style jambe noire
+- **Ace** - Fruit des flammes
+- **Shanks** - Maître du Haki
 
 ### 🗡️ Bleach
-- **Ichigo** - Soul Reaper powers
+- **Ichigo** - Pouvoirs Shinigami
 - **Aizen** - Kyoka Suigetsu
 - **Byakuya** - Senbonzakura
 - **Hitsugaya** - Hyourinmaru
-- **Grimmjow** - Hollow powers
+- **Grimmjow** - Pouvoirs Hollow
 
 ### 🐉 Dragon Ball Z
-- **Goku** - Super Saiyan transformations
-- **Gohan** - Potential unlocked
-- **Vegeta** - Prince of Saiyans
-- **Trunks** - Future warrior
-- **Freezer** - Tyranitar form
+- **Goku** - Transformations Super Saiyan
+- **Gohan** - Potentiel déverrouillé
+- **Vegeta** - Prince des Saiyans
+- **Trunks** - Guerrier du futur
+- **Freezer** - Forme Tyranitar
 
 ### ⚡ My Hero Academia
-*(Coming soon)*
+*(À venir)*
 
 ### 🏝️ Naruto
-*(Coming soon)*
+*(À venir)*
 
 ### 🔮 Jujutsu Kaisen
-*(Coming soon)*
+*(À venir)*
 
 ### 👹 Demon Slayer
-*(Coming soon)*
+*(À venir)*
 
 ---
 
-## 🎰 Gacha System
+## 🎰 Système de Gacha
 
-Pull for:
-- **Races** - Human, Saiyan, Shinigami, Demon, etc.
-- **Clans** - Special family lineages
-- **Attributes** - Fire, Water, Wind, Lightning, etc.
-- **Stats** - Strength, Speed, Stamina, Vitality
-- **Weapon/Power Passives** - Special bonuses for your builds
+Tirez pour obtenir :
+- **Races** - Humain, Saiyen, Shinigami, Démon, etc.
+- **Clans** - Lignées familiales spéciales
+- **Attributs** - Feu, Eau, Vent, Foudre, etc.
+- **Stats** - Force, Endurance, Vitesse, Vitalité
+- **Passifs d'armes/pouvoirs** - Bonus spéciaux pour vos builds
 
 ---
 
-## 📈 Leveling System
+## 📈 Système de Leveling
 
-### Character Leveling
-- Gain XP through quests and combat
-- **Every level up grants 3 stat points**
-- Allocate points freely in the **stat tree**:
-  - Strength
-  - Speed
-  - Stamina
-  - Vitality
-  - And more...
+### Leveling du Personnage
+- Gagnez de l'XP via les quêtes et les combats
+- **Chaque niveau octroie 3 points de stats**
+- Allouez librement les points dans l'**arbre des statistiques** :
+  - Force
+  - Vitesse
+  - Endurance
+  - Vitalité
+  - Et plus...
 
-### Power Leveling (Transformations)
-- Unlock advanced forms by reaching level thresholds
-- **Examples**:
+### Leveling des Pouvoirs (Transformations)
+- Déverrouillez les formes avancées en atteignant des seuils de niveau
+- **Exemples** :
   - Super Saiyan 1 → Super Saiyan 2 → Super Saiyan 3 → Ultra Instinct
-  - Demon Fruit attacks unlock progressively
-- Same system applies to all power types
+  - Attaques du fruit démon se débloquent progressivement
+- Le même système s'applique à tous les types de pouvoirs
 
 ---
 
-## 👹 World Bosses
+## 👹 Boss de Monde
 
-- Each island has a **world boss** with unique abilities
-- **Random drops** with percentage-based chance
-- Best weapons and items come from boss drops
-
----
-
-## ⚔️ Combat System
-
-### Two Combat Styles
-
-#### 🥊 Melee
-Close-combat focused characters:
-- Sword techniques (Zoro's three-sword style)
-- Hand-to-hand combat
-- High physical damage
-
-#### ✨ Power
-Magic/power-focused characters:
-- Elemental attacks (Ace's flames)
-- Energy projections
-- Cursed techniques
-
-### Skill Controls
-- **W, X, C, V, F, J** - Bind powers and melee abilities
-- Mix and match between the two styles
-
-### Transformation System
-- Once a combat style is sufficiently evolved
-- Purchase transformation styles from NPCs
-- Progress through transformation tiers (SSJ1 → SSJ2 → SSJ3 → Ultra Instinct)
+- Chaque île possède un **boss de monde** avec des abilities uniques
+- **Drops aléatoires** avec chance en pourcentage
+- Les meilleures armes et objets proviennent des drops de boss
 
 ---
 
-## 🛒 NPC Shops & Weapons
+## ⚔️ Système de Combat
 
-- **NPCs scattered across islands** sell weapons
-- Weapons are balanced - not overpowered
-- **Best weapons** obtained through:
-  - Quest rewards
-  - World boss drops
+#### 🥊 Style Corps à Corps (Melee)
+Personnages axés au corps à corps :
+- Techniques d'épée (style à trois épées de Zoro)
+- Combat à mains nues
+- Dégâts physiques élevés
+
+#### ✨ Style Pouvoir (Power)
+Personnages axés magie/pouvoir :
+- Attaques élémentaires (flammes d'Ace)
+- Projections d'énergie
+- Techniques demalédiction
+
+### Contrôles des Compétences
+- **W, X, C, V, F, J** - Assignez les pouvoirs et attaques corps à corps
+- Mixez entre les deux styles
+
+### Système de Transformation
+- Une fois qu'un style de combat est suffisamment évolué
+- Achetez des styles de transformation chez les PNJ
+- Progressez dans les paliers de transformation (SSJ1 → SSJ2 → SSJ3 → Ultra Instinct)
 
 ---
 
-## 💎 Monetization
+## 🛒 PNJ et Armes
 
-### Cosmetic Gacha
-- Pull for exclusive cosmetic items
-- Available for **Robux** or **Gems**
+- **PNJ dispersés à travers les îles** vendent des armes
+- Les armes sont équilibrées - pas surpuissantes
+- **Meilleures armes** obtenues via :
+  - Récompenses de quêtes
+  - Drops de boss de monde
 
-### Direct Purchase
-- Buy cosmetics directly with **Robux** at a premium price
+---
+
+## 💎 Monétisation
+
+### Gacha Cosmétique
+- Tirez pour des objets cosmétique exclusifs
+- Disponible avec les **Robux** ou les **Gemmes**
+
+### Achat Direct
+- Achetez des cosmétiques directement avec des **Robux** à prix premium
 
 ### Gamepasses
-- **Double Luck** - Better drop rates
-- **Double Money** - 2x berries from all sources
-- **Double Drops** - More items from enemies
-- **Double Gems** - 2x gem rewards
-- **Double XP** - Faster leveling
+- **Double Chance** - Meilleurs taux de drop
+- **Double Argent** - 2x de berries de toutes les sources
+- **Double Drops** - Plus d'objets des ennemis
+- **Double Gemmes** - 2x de gemmes en récompense
+- **Double XP** - Leveling plus rapide
 
 ---
 
-## 👥 Development Team
+## 👥 Équipe de Développement
 
-| Member | Role |
+| Membre | Rôle |
 |--------|------|
-| **Lenaya** | 3D Modeler |
+| **Lenaya** | Modélisation 3D |
 | **Clersodo** | Builder |
-| **Shima** | Scripter |
+| **Shima** | Scripting |
 
 ---
 
-## 🚧 Status
+## 🚧 Statut
 
-**Currently in development**
+**En développement**
 
 ## ⭐ Support
 
-Favorite the game to be notified.
+Ajoutez aux favoris pour être notifié.
