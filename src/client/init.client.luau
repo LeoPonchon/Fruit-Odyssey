@@ -1,6 +1,7 @@
 -- ============================================================================
 -- FRUIT ODYSSEY - CLIENT SYSTEMS
--- Dash (F) + Combat Tool (Stance/Run/Attack animations)
+-- Dash (F) + Combat Tool (Idle/Attack animations)
+-- Run/Jump/Fall use GLOBAL animations - TOOL HAS ZERO INFLUENCE ON THEM
 -- ============================================================================
 
 local Players = game:GetService("Players")
@@ -14,6 +15,62 @@ local rootPart = character:WaitForChild("HumanoidRootPart")
 
 -- Reference to Roblox's default Animate script
 local animateScript = character:FindFirstChild("Animate")
+
+-- ============================================================================
+-- GLOBAL CUSTOM ANIMATIONS (used for Run/Jump/Fall - ALWAYS)
+-- ============================================================================
+local GLOBAL_IDLE_ANIM_ID = "rbxassetid://117407032872713"
+local GLOBAL_RUN_ANIM_ID = "rbxassetid://132094209864309"
+local GLOBAL_JUMP_ANIM_ID = "rbxassetid://81203994982566"
+local GLOBAL_FALL_ANIM_ID = "rbxassetid://132090986344206"
+
+local globalIdleAnim = nil
+local globalRunAnim = nil
+local globalJumpAnim = nil
+local globalFallAnim = nil
+
+local function loadGlobalAnimations()
+	-- Idle animation
+	if GLOBAL_IDLE_ANIM_ID and GLOBAL_IDLE_ANIM_ID ~= "" then
+		local anim = Instance.new("Animation")
+		anim.AnimationId = GLOBAL_IDLE_ANIM_ID
+		anim.Name = "GlobalIdle"
+		globalIdleAnim = humanoid:LoadAnimation(anim)
+		globalIdleAnim.Priority = Enum.AnimationPriority.Action
+		globalIdleAnim.Looped = true
+	end
+	
+	-- Run animation
+	if GLOBAL_RUN_ANIM_ID and GLOBAL_RUN_ANIM_ID ~= "" and GLOBAL_RUN_ANIM_ID ~= "rbxassetid://0" then
+		local anim = Instance.new("Animation")
+		anim.AnimationId = GLOBAL_RUN_ANIM_ID
+		anim.Name = "GlobalRun"
+		globalRunAnim = humanoid:LoadAnimation(anim)
+		globalRunAnim.Priority = Enum.AnimationPriority.Action
+		globalRunAnim.Looped = true
+	end
+	
+	-- Jump animation
+	if GLOBAL_JUMP_ANIM_ID and GLOBAL_JUMP_ANIM_ID ~= "" then
+		local anim = Instance.new("Animation")
+		anim.AnimationId = GLOBAL_JUMP_ANIM_ID
+		anim.Name = "GlobalJump"
+		globalJumpAnim = humanoid:LoadAnimation(anim)
+		globalJumpAnim.Priority = Enum.AnimationPriority.Action
+	end
+	
+	-- Fall animation
+	if GLOBAL_FALL_ANIM_ID and GLOBAL_FALL_ANIM_ID ~= "" then
+		local anim = Instance.new("Animation")
+		anim.AnimationId = GLOBAL_FALL_ANIM_ID
+		anim.Name = "GlobalFall"
+		globalFallAnim = humanoid:LoadAnimation(anim)
+		globalFallAnim.Priority = Enum.AnimationPriority.Action
+	end
+end
+
+-- Load global animations at startup
+loadGlobalAnimations()
 
 -- ============================================================================
 -- DASH SYSTEM
@@ -85,42 +142,32 @@ attackEvent.Parent = ReplicatedStorage
 
 -- State
 local equippedTool = nil
-local stanceAnim = nil
-local runAnim = nil
-local attackAnim = nil
+local toolIdleAnim = nil
+local toolAttackAnim = nil
 local canAttack = true
 local isMoving = false
+local isJumping = false
+local lastState = "idle"
 
 -- Animation helpers
--- IMPORTANT: Use Enum.AnimationPriority.Action to override Roblox default animations
--- This is the KEY FIX: Without this, custom animations blend with default ones
 local function loadToolAnimations(tool)
-	local stanceId = tool:GetAttribute("StanceAnimId")
+	local idleId = tool:GetAttribute("IdleAnimId")
 	local attackId = tool:GetAttribute("AttackAnimId")
-	local runId = tool:GetAttribute("RunAnimId")
 	
-	if stanceId and stanceId ~= "" then
+	if idleId and idleId ~= "" then
 		local anim = Instance.new("Animation")
-		anim.AnimationId = stanceId
-		anim.Name = "CustomStance"
-		stanceAnim = humanoid:LoadAnimation(anim)
-		stanceAnim.Priority = Enum.AnimationPriority.Action  -- CRITICAL: Override default animations
+		anim.AnimationId = idleId
+		anim.Name = "ToolIdle"
+		toolIdleAnim = humanoid:LoadAnimation(anim)
+		toolIdleAnim.Priority = Enum.AnimationPriority.Action
 	end
 	
 	if attackId and attackId ~= "" then
 		local anim = Instance.new("Animation")
 		anim.AnimationId = attackId
-		anim.Name = "CustomAttack"
-		attackAnim = humanoid:LoadAnimation(anim)
-		attackAnim.Priority = Enum.AnimationPriority.Action  -- CRITICAL: Override default animations
-	end
-	
-	if runId and runId ~= "" then
-		local anim = Instance.new("Animation")
-		anim.AnimationId = runId
-		anim.Name = "CustomRun"
-		runAnim = humanoid:LoadAnimation(anim)
-		runAnim.Priority = Enum.AnimationPriority.Action  -- CRITICAL: Override default animations
+		anim.Name = "ToolAttack"
+		toolAttackAnim = humanoid:LoadAnimation(anim)
+		toolAttackAnim.Priority = Enum.AnimationPriority.Action
 	end
 end
 
@@ -134,58 +181,63 @@ local function stopAllAnimations()
 	end
 end
 
-local function stopCustomAnimations()
-	if stanceAnim and stanceAnim.IsPlaying then
-		stanceAnim:Stop()
-	end
-	if runAnim and runAnim.IsPlaying then
-		runAnim:Stop()
-	end
-	if attackAnim and attackAnim.IsPlaying then
-		attackAnim:Stop()
-	end
-end
-
-local function playStance()
-	if stanceAnim and not isMoving and not stanceAnim.IsPlaying then
+-- Global animation functions - FOR IDLE ONLY
+local function playGlobalIdle()
+	if globalIdleAnim and not globalIdleAnim.IsPlaying then
 		stopAllAnimations()
-		stanceAnim.Looped = true
-		stanceAnim:Play()
+		globalIdleAnim:Play()
 	end
 end
 
-local function stopStance()
-	if stanceAnim and stanceAnim.IsPlaying then
-		stanceAnim:Stop()
-	end
-end
-
-local function playRun()
-	if runAnim and isMoving and not runAnim.IsPlaying then
+local function playGlobalRun()
+	if globalRunAnim and not globalRunAnim.IsPlaying then
 		stopAllAnimations()
-		runAnim.Looped = true
-		runAnim:Play()
+		globalRunAnim:Play()
 	end
 end
 
-local function stopRun()
-	if runAnim and runAnim.IsPlaying then
-		runAnim:Stop()
+local function playGlobalJump()
+	if globalJumpAnim and not globalJumpAnim.IsPlaying then
+		stopAllAnimations()
+		globalJumpAnim:Play()
+	end
+end
+
+local function playGlobalFall()
+	if globalFallAnim and not globalFallAnim.IsPlaying then
+		stopAllAnimations()
+		globalFallAnim:Play()
+	end
+end
+
+local function playToolIdle()
+	if toolIdleAnim and not toolIdleAnim.IsPlaying then
+		stopAllAnimations()
+		toolIdleAnim.Looped = true
+		toolIdleAnim:Play()
 	end
 end
 
 local function attack()
-	if not canAttack or not attackAnim then return end
+	if not canAttack or not toolAttackAnim then return end
 	canAttack = false
 	
-	stopStance()
-	attackAnim.Looped = false
-	attackAnim:Play()
+	stopAllAnimations()
 	
-	local animDuration = attackAnim.Length / attackAnim.Speed
+	toolAttackAnim.Looped = false
+	toolAttackAnim:Play()
+	
+	local animDuration = toolAttackAnim.Length / toolAttackAnim.Speed
 	task.delay(animDuration, function()
-		if equippedTool and not isMoving then
-			playStance()
+		-- After attack, resume appropriate animation based on state
+		if isJumping then
+			playGlobalJump()
+		elseif isMoving then
+			playGlobalRun()
+		elseif equippedTool then
+			playToolIdle()
+		else
+			playGlobalIdle()
 		end
 	end)
 	
@@ -194,55 +246,42 @@ local function attack()
 	end)
 end
 
--- Tool events
--- IMPROVED: Proper handling of equip/unequip to avoid animation conflicts
+-- Tool events - ONLY affect idle, never touch run/jump/fall
 local function onToolEquipped(tool)
 	if equippedTool == tool then return end
 	if tool.Name ~= "Combat" then return end
 	
-	-- Stop any currently playing custom animations first
-	stopCustomAnimations()
-	
 	equippedTool = tool
 	
-	-- Disable Roblox's default Animate script completely
+	-- Disable animate script
 	if animateScript then
 		animateScript.Disabled = true
 	end
 	
-	-- Force stop ALL animation tracks to ensure clean slate
-	if animator then
-		for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
-			track:Stop()
-		end
-	end
-	
 	loadToolAnimations(tool)
-	playStance()
+	
+	-- ONLY affect idle - don't touch if moving
+	if not isMoving and not isJumping then
+		playToolIdle()
+	end
 end
 
 local function onToolUnequipped(tool)
 	if tool.Name ~= "Combat" then return end
 	
-	-- Stop custom animations FIRST before re-enabling Animate
-	stopCustomAnimations()
+	-- Stop ONLY tool idle animation - DON'T touch run/jump/fall
+	if toolIdleAnim then
+		toolIdleAnim:Stop()
+	end
 	
 	equippedTool = nil
 	
-	-- Small delay to ensure custom animations are fully stopped
-	task.wait(0.05)
-	
-	-- Re-enable Roblox's default Animate script
-	if animateScript then
-		animateScript.Disabled = false
+	-- ONLY play global idle if actually idle - don't touch movement
+	if not isMoving and not isJumping then
+		playGlobalIdle()
 	end
 	
-	-- Force restart of default animations by briefly toggling AutoRotate
-	-- This ensures clean transition back to default animations
-	local originalAutoRotate = humanoid.AutoRotate
-	humanoid.AutoRotate = false
-	task.wait(0.01)
-	humanoid.AutoRotate = originalAutoRotate
+	-- DON'T re-enable animate script - our custom animations handle everything
 end
 
 -- ============================================================================
@@ -251,12 +290,10 @@ end
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
 	if gameProcessed then return end
 	
-	-- Dash on F
 	if input.KeyCode == Enum.KeyCode.F then
 		dash()
 	end
 	
-	-- Attack on left click
 	if input.UserInputType == Enum.UserInputType.MouseButton1 and equippedTool then
 		attack()
 	end
@@ -265,15 +302,12 @@ end)
 -- ============================================================================
 -- CHARACTER EVENTS
 -- ============================================================================
-
--- Check for existing tool
 for _, child in ipairs(character:GetChildren()) do
 	if child:IsA("Tool") and child.Name == "Combat" then
 		onToolEquipped(child)
 	end
 end
 
--- Tool equipped/unequipped
 character.ChildAdded:Connect(function(child)
 	if child:IsA("Tool") and child.Name == "Combat" then
 		task.wait(0.2)
@@ -289,17 +323,64 @@ character.ChildRemoved:Connect(function(child)
 	end
 end)
 
--- Movement detection
-humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
-	isMoving = humanoid.MoveDirection.Magnitude > 0
+-- Movement detection - HANDLES RUN/JUMP/FALL AUTOMATICALLY
+local function updateMovementState()
+	local velocityMagnitude = rootPart.Velocity.Magnitude
+	isMoving = velocityMagnitude > 0.5
+	
+	-- Don't change if jumping/falling
+	if isJumping then return end
+	
+	local targetState = nil
 	
 	if equippedTool then
 		if isMoving then
-			stopStance()
-			playRun()
+			targetState = "globalRun"
 		else
-			stopRun()
-			playStance()
+			targetState = "toolIdle"
+		end
+	else
+		if isMoving then
+			targetState = "globalRun"
+		else
+			targetState = "globalIdle"
+		end
+	end
+	
+	-- Only transition if state actually changed
+	if targetState ~= lastState then
+		lastState = targetState
+		
+		if targetState == "globalRun" then
+			playGlobalRun()
+		elseif targetState == "globalIdle" then
+			playGlobalIdle()
+		elseif targetState == "toolIdle" then
+			playToolIdle()
+		end
+	end
+end
+
+-- Check movement every frame
+game:GetService("RunService").Heartbeat:Connect(function()
+	updateMovementState()
+end)
+
+-- Jump/Fall detection
+humanoid.StateChanged:Connect(function(oldState, newState)
+	if newState == Enum.HumanoidStateType.Jumping then
+		isJumping = true
+		lastState = "globalJump"
+		playGlobalJump()
+		
+	elseif newState == Enum.HumanoidStateType.Freefall then
+		isJumping = true
+		lastState = "globalFall"
+		playGlobalFall()
+		
+	elseif newState == Enum.HumanoidStateType.Running or newState == Enum.HumanoidStateType.RunningNoPhysics then
+		if isJumping then
+			isJumping = false
 		end
 	end
 end)
@@ -310,8 +391,25 @@ player.CharacterAdded:Connect(function(newCharacter)
 	character = newCharacter
 	humanoid = newCharacter:WaitForChild("Humanoid")
 	rootPart = newCharacter:WaitForChild("HumanoidRootPart")
+	animator = humanoid:FindFirstChild("Animator")
 	animateScript = newCharacter:FindFirstChild("Animate")
 	equippedTool = nil
+	toolIdleAnim = nil
+	toolAttackAnim = nil
+	isMoving = false
+	isJumping = false
+	lastState = "idle"
+	
+	loadGlobalAnimations()
+	
+	for _, child in ipairs(character:GetChildren()) do
+		if child:IsA("Tool") and child.Name == "Combat" then
+			task.wait(0.1)
+			onToolEquipped(child)
+		end
+	end
+	
+	playGlobalIdle()
 end)
 
 print("[Client] Systems loaded!")
