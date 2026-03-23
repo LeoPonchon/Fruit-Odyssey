@@ -5,20 +5,32 @@
 
     "ReplicatedStorage": {
       "Shared": {
-        "$path": "src/shared"
+        "$path": "dist/shared"
+      },
+      "Include": {
+        "$path": "include"
+      },
+      "node_modules": {
+        "$className": "Folder",
+        "@rbxts": {
+          "$path": "node_modules/@rbxts"
+        },
+        "@rbxts-js": {
+          "$path": "node_modules/@rbxts-js"
+        }
       }
     },
 
     "ServerScriptService": {
       "Server": {
-        "$path": "src/server"
+        "$path": "dist/server"
       }
     },
 
     "StarterPlayer": {
       "StarterPlayerScripts": {
         "Client": {
-          "$path": "src/client"
+          "$path": "dist/client"
         }
       }
     },

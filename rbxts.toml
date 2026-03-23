@@ -1,0 +1,14 @@
+[package]
+name = "fruit-odyssey"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+[build]
+inplace = true
+emit = "luau"
+skip_lib_check = true
+
+[outputPath]
+server = "src/server"
+client = "src/client"
+shared = "src/shared"

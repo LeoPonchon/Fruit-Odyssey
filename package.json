@@ -1,0 +1,29 @@
+{
+  "name": "fruit-odyssey",
+  "version": "1.0.0",
+  "description": "Fruit Odyssey - Roblox Game",
+  "scripts": {
+    "build": "rojo build",
+    "watch": "rojo watch",
+    "serve": "rojo serve",
+    "build:rbxts": "npx roblox-ts build",
+    "dev": "concurrently \"npm run serve\" \"npm run watch:rbxts\"",
+    "watch:rbxts": "npx roblox-ts watch",
+    "start": "npm run build:rbxts && npm run serve"
+  },
+  "dependencies": {
+    "@rbxts/react": "^17.3.7-alpha.1",
+    "@rbxts/react-roblox": "^17.3.7-alpha.1",
+    "@rbxts/services": "^1.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@rbxts/compiler-types": "^3.0.0-types.0",
+    "@rbxts/types": "^1.0.912",
+    "concurrently": "^8.2.0",
+    "roblox-ts": "^3.0.0",
+    "rojo": "^1.0.3-rojo7.6.1",
+    "typescript": "^5.0.0"
+  }
+}
